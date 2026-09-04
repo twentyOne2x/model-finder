@@ -1,0 +1,37 @@
+name: Test and build
+on:
+  push:
+  pull_request:
+permissions:
+  contents: read
+jobs:
+  python:
+    runs-on: ubuntu-latest
+    strategy:
+      matrix:
+        python-version: ['3.10', '3.13']
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+      - run: python -m unittest discover -s tests -v
+      - run: python model_finder.py validate model-finder.example.json
+      - run: python tests/prepare_fixture.py .cache/ci.json
+      - run: python model_finder.py prepare .cache/ci.json
+  macos:
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.13'
+      - run: python -m unittest discover -s tests -v
+      - run: python model_finder.py build
+      - run: python tests/prepare_fixture.py .cache/ci.json
+      - run: python model_finder.py render .cache/ci.json --no-build --no-cursor
+      - run: test -f dist/frames/00-ready.png && test -f dist/frames/06-confirmed.png && test -f dist/frames/08-open-failed-hover.png
+      - uses: actions/upload-artifact@v4
+        with:
+          name: popup-states
+          path: dist/frames/*.png

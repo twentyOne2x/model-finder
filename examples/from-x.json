@@ -1,0 +1,25 @@
+{
+  "$schema": "../schema/model-finder.schema.json",
+  "target": { "model_id": "your-model-id", "display_name": "Your model" },
+  "members": [
+    { "name": "Tibo", "role": "tank", "profile_url": "https://x.com/thsottiaux", "portrait_zoom": 1.17 },
+    { "name": "Andrew", "role": "healer", "profile_url": "https://x.com/ajambrosino", "portrait_zoom": 1.17 },
+    { "name": "Victor", "role": "dps", "profile_url": "https://x.com/victornunez", "portrait_zoom": 1.17 },
+    { "name": "Sam", "role": "dps", "profile_url": "https://x.com/sama", "portrait_zoom": 1.17 },
+    { "name": "Billy", "role": "dps", "avatar": "../assets/portraits/billy.png", "portrait_zoom": 1.23, "is_local": true }
+  ],
+  "availability": {
+    "interval_seconds": 600,
+    "timeout_seconds": 10,
+    "command": ["python3", "check-file.py", "READY"]
+  },
+  "popup": {
+    "destination_url": "https://github.com/twentyOne2x/model-finder",
+    "destination_label": "REPO",
+    "sounds": {
+      "ready": "../assets/audio/wow-dungeon-ready-567478.wav",
+      "enter": "../assets/audio/wow-enter-dungeon-click-567422.wav",
+      "confirm": "../assets/audio/wow-party-member-confirm-567513.wav"
+    }
+  }
+}

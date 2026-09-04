@@ -1,0 +1,23 @@
+{
+  "$schema": "./schema/model-finder.schema.json",
+  "target": { "model_id": "gpt-6-astra", "display_name": "Astra" },
+  "members": [
+    { "name": "Tibo", "role": "tank", "avatar": "assets/portraits/tibo.jpg", "portrait_zoom": 1.17 },
+    { "name": "Andrew", "role": "healer", "avatar": "assets/portraits/andrew.jpg", "portrait_zoom": 1.17 },
+    { "name": "Victor", "role": "dps", "avatar": "assets/portraits/victor.jpg", "portrait_zoom": 1.17 },
+    { "name": "Sam", "role": "dps", "avatar": "assets/portraits/sam.jpg", "portrait_zoom": 1.17 },
+    { "name": "Billy", "role": "dps", "avatar": "assets/portraits/billy.png", "portrait_zoom": 1.23, "is_local": true }
+  ],
+  "popup": {
+    "destination_url": "https://github.com/twentyOne2x/model-finder",
+    "destination_label": "REPO",
+    "idle_seconds": 90,
+    "confirmation_min_seconds": 0.8,
+    "confirmation_max_seconds": 4.4,
+    "sounds": {
+      "ready": "assets/audio/wow-dungeon-ready-567478.wav",
+      "enter": "assets/audio/wow-enter-dungeon-click-567422.wav",
+      "confirm": "assets/audio/wow-party-member-confirm-567513.wav"
+    }
+  }
+}

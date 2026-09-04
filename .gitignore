@@ -1,0 +1,16 @@
+.build/
+.cache/
+dist/
+__pycache__/
+*.py[cod]
+.DS_Store
+*.log
+.env
+.env.*
+model-finder.local.json
+examples/READY
+# Blizzard-owned raw media is installed locally, never relicensed or mirrored.
+assets/audio/*.wav
+assets/audio/*.ogg
+assets/theme/wow-gauntlet-cursor*.png
+assets/.download-cache/

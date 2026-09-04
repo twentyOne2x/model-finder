@@ -1,0 +1,90 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://raw.githubusercontent.com/twentyOne2x/model-finder/main/schema/model-finder.schema.json",
+  "title": "Model Finder configuration",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["target", "members", "popup"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "target": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["model_id", "display_name"],
+      "properties": {
+        "model_id": { "type": "string", "minLength": 1, "maxLength": 128 },
+        "display_name": { "type": "string", "minLength": 1, "maxLength": 24 }
+      }
+    },
+    "members": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["name", "role"],
+        "properties": {
+          "name": { "type": "string", "minLength": 1, "maxLength": 20 },
+          "role": { "enum": ["tank", "healer", "dps"] },
+          "x_handle": { "type": "string", "pattern": "^@?[A-Za-z0-9_]{1,15}$" },
+          "profile_url": { "type": "string", "pattern": "^https://(www\\.)?(x\\.com|twitter\\.com)/[A-Za-z0-9_]{1,15}/?$" },
+          "avatar": { "type": "string", "minLength": 1 },
+          "portrait_zoom": { "type": "number", "minimum": 1, "maximum": 2 },
+          "is_local": { "type": "boolean" }
+        },
+        "oneOf": [
+          { "required": ["x_handle"], "not": { "anyOf": [{"required": ["avatar"]}, {"required": ["profile_url"]}] } },
+          { "required": ["profile_url"], "not": { "anyOf": [{"required": ["avatar"]}, {"required": ["x_handle"]}] } },
+          { "required": ["avatar"], "not": { "anyOf": [{"required": ["x_handle"]}, {"required": ["profile_url"]}] } }
+        ]
+      }
+    },
+    "availability": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["interval_seconds", "command"],
+      "properties": {
+        "interval_seconds": { "type": "integer", "minimum": 10, "maximum": 86400 },
+        "timeout_seconds": { "type": "integer", "minimum": 5, "maximum": 600 },
+        "command": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      }
+    },
+    "popup": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["destination_url"],
+      "properties": {
+        "destination_url": { "type": "string", "minLength": 1 },
+        "destination_label": { "type": "string", "minLength": 1, "maxLength": 14 },
+        "idle_seconds": { "type": "number", "minimum": 5, "maximum": 300 },
+        "confirmation_min_seconds": { "type": "number", "minimum": 0.5, "maximum": 60 },
+        "confirmation_max_seconds": { "type": "number", "minimum": 0.5, "maximum": 60 },
+        "theme": {
+          "type": "object", "additionalProperties": false,
+          "properties": {
+            "frame": {"type": "string", "minLength": 1},
+            "roleTank": {"type": "string", "minLength": 1},
+            "roleHealer": {"type": "string", "minLength": 1},
+            "roleDPS": {"type": "string", "minLength": 1},
+            "cursor": {"type": "string", "minLength": 1},
+            "cursorActive": {"type": "string", "minLength": 1}
+          }
+        },
+        "sounds": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "ready": { "type": "string" },
+            "enter": { "type": "string" },
+            "confirm": { "type": "string" }
+          }
+        }
+      }
+    }
+  }
+}
