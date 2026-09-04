@@ -136,8 +136,13 @@ Exporting does not post anything or capture your screen automatically.
 ```sh
 python3 -m unittest discover -s tests -v
 python3 model_finder.py build
-python3 model_finder.py render model-finder.example.json --no-build --no-cursor
+python3 tests/prepare_fixture.py .cache/ci.json
+python3 model_finder.py render .cache/ci.json --no-build --no-cursor
 ```
+
+The fixture uses bundled art and silent audio, so development checks need no
+downloads. After the media setup above, render `model-finder.example.json` instead
+to use the authentic sounds and cursors.
 
 Generated binaries, avatar caches, runtime JSON, and exports live in `.build/`,
 `.cache/`, and `dist/` and are ignored by Git. No telemetry or automatic updates.
